@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/darth"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.pargibaycalvo.simondice.MainActivity"
+    tools:showIn="@layout/activity_main">
+
+    <LinearLayout
+        android:layout_width="360dp"
+        android:layout_height="472dp"
+        android:gravity="center"
+        tools:layout_editor_absoluteX="14dp"
+        tools:layout_editor_absoluteY="13dp"
+        android:weightSum="1">
+
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="0.42"
+            android:useDefaultMargins="true">
+
+            <Button
+                android:id="@+id/btnstart"
+                android:layout_width="138dp"
+                android:layout_height="41dp"
+                android:layout_column="1"
+                android:layout_gravity="center_horizontal"
+                android:layout_row="4"
+                android:background="@drawable/buttonpulsestart"
+                android:onClick="startgame"
+                android:text="@string/ButtonStart" />
+
+            <Button
+                android:id="@+id/btnrestart"
+                android:layout_width="138dp"
+                android:layout_height="41dp"
+                android:layout_column="2"
+                android:layout_gravity="center_horizontal"
+                android:layout_row="4"
+                android:background="@drawable/buttonpulserestart"
+                android:onClick="resetgame"
+                android:text="@string/ButtonReset" />
+
+            <Button
+                android:id="@+id/btnred"
+                android:layout_width="170dp"
+                android:layout_height="200dp"
+                android:layout_column="1"
+                android:layout_row="2"
+                android:background="@drawable/buttonpulsered"
+                android:onClick="buttonSoundred" />
+
+            <Button
+                android:id="@+id/btngreen"
+                android:layout_width="170dp"
+                android:layout_height="200dp"
+                android:layout_column="2"
+                android:layout_row="3"
+                android:background="@drawable/buttonpulsegreen"
+                android:onClick="buttonSoundgreen" />
+
+            <Button
+                android:id="@+id/btnblue"
+                android:layout_width="170dp"
+                android:layout_height="200dp"
+                android:layout_column="1"
+                android:layout_row="3"
+                android:background="@drawable/buttonpulseblue"
+                android:onClick="buttonSoundblue" />
+
+            <Button
+                android:id="@+id/btnyellow"
+                android:layout_width="170dp"
+                android:layout_height="200dp"
+                android:layout_column="2"
+                android:layout_row="2"
+                android:background="@drawable/buttonpulseyellow"
+                android:onClick="buttonSoundyellow" />
+
+        </GridLayout>
+
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

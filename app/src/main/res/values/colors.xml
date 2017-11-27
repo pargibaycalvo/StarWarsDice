@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">#000000</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorBackground">#030303</color>
+
+
+    <color name="colorButtonred">#a6ff4340</color>
+    <color name="colorButtonblue">#a64070ff</color>
+    <color name="colorButtongreen">#a659ff40</color>
+    <color name="colorButtonyellow">#a6ffef40</color>
+
+
+    <color name="colorButtonpulsecolors">#ff40fc</color>
+    <color name="colorButtonpulsestart">#43ff40</color>
+    <color name="colorButtonpulserestart">#ff4640</color>
+
+
+    <color name="colorButtonstart">#bfff40</color>
+    <color name="colorButtonrestart">#ffbf40</color>
+
+    <color name="colordesktop1">#8f218e</color>
+    <color name="colordesktop2">#278026</color>
+    <color name="colordesktop3">#891e1a</color>
+
+    <color name="colorTxt">#fc010e</color>
+
+
+    <integer-array name="selectcolorbackground">
+        <item>@color/colordesktop1</item>
+        <item>@color/colordesktop2</item>
+        <item>@color/colordesktop3</item>
+    </integer-array>
+
+</resources>
