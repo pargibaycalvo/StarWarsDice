@@ -26,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
     Button reset;
     TextView lvl;
 
+    public static final int INTERVALO = 2000; //2 segundos para salir
+    public long tiempoPrimerClick;
+
     ArrayList<Integer> game = new ArrayList();
     ArrayList<Integer> answers = new ArrayList();
 
@@ -200,7 +203,19 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        //confirmacion al salir de la app
+        @Override
+        public void onBackPressed(){
+            if (tiempoPrimerClick + INTERVALO > System.currentTimeMillis()){
+                super.onBackPressed();
+                return;
+            }else {
+                Toast.makeText(this, "Volveremos a vernos joven Jedi", Toast.LENGTH_SHORT).show();
+            }
+            tiempoPrimerClick = System.currentTimeMillis();
+        }
 
+    //configuraciones secundarias (no activadas)
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
