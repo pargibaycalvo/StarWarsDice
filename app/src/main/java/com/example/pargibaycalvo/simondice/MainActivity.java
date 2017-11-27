@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     Button play;
     Button reset;
     TextView lvl;
+    MediaPlayer musicafondo;
 
     public static final int INTERVALO = 2000; //2 segundos para salir
     public long tiempoPrimerClick;
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //musica de fondo para la app
-        final MediaPlayer musicafondo = MediaPlayer.create(this, R.raw.imperial);
+        musicafondo = MediaPlayer.create(this, R.raw.imperial);
         musicafondo.setLooping(true);
         musicafondo.setVolume(volume, volume);
         new Timer().schedule(new TimerTask(){
@@ -203,14 +204,17 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        //confirmacion al salir de la app
+        //confirmacion al salir de la app con sonido
         @Override
         public void onBackPressed(){
+            final MediaPlayer exit = MediaPlayer.create(this, R.raw.off);
             if (tiempoPrimerClick + INTERVALO > System.currentTimeMillis()){
                 super.onBackPressed();
                 return;
-            }else {
+            }else{
                 Toast.makeText(this, "Volveremos a vernos joven Jedi", Toast.LENGTH_SHORT).show();
+                musicafondo.stop();
+                exit.start();
             }
             tiempoPrimerClick = System.currentTimeMillis();
         }
