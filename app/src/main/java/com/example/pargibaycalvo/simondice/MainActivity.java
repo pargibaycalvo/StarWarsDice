@@ -1,6 +1,5 @@
 package com.example.pargibaycalvo.simondice;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -9,10 +8,11 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.media.MediaPlayer;
+
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -21,12 +21,14 @@ public class MainActivity extends AppCompatActivity {
     int MAX_VOLUME = 100; //volumen máximo de referencia
     int soundVolume = 100; //volumen que queremos poner
     float volume = (float) (1 - (Math.log(MAX_VOLUME - soundVolume) / Math.log(MAX_VOLUME)));
-
-    int Puntuación = 20;//puntuacion por pulsacion
-
-    int lvl = 0;
     Button botonescolor[];
-    Integer partidas[]=null;
+    Button play;
+    Button reset;
+    TextView lvl;
+
+    ArrayList<Integer> game = new ArrayList();
+    ArrayList<Integer> answers = new ArrayList();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +49,15 @@ public class MainActivity extends AppCompatActivity {
             }
         }, 1000);
 
-        //botones funcionales
+        //boton start y reset funcional desde xml
+        play = (Button)findViewById(R.id.btnstart);
+        reset = (Button)findViewById(R.id.btnrestart);
+        reset.setEnabled(false);
+
+        //puntuacion funcional desde xml
+        lvl = (TextView)findViewById(R.id.textView);
+
+        //botones funcionales desde xml
         botonescolor = new Button[]{
                 (Button)findViewById(R.id.btnred),
                 (Button)findViewById(R.id.btngreen),
@@ -55,105 +65,140 @@ public class MainActivity extends AppCompatActivity {
                 (Button)findViewById(R.id.btnyellow)
         };
 
-        //texto score
-        TextView score = (TextView)findViewById(R.id.textView);
+        //musica y texto boton start y reset
+        final Toast toast1 = Toast.makeText(getApplicationContext(),"Que la fuerza te acompañe", Toast.LENGTH_SHORT);
+        final MediaPlayer mp1 = MediaPlayer.create(this, R.raw.swvader02);
+        final Toast toast2 = Toast.makeText(getApplicationContext(),"Siguiente Jugada", Toast.LENGTH_SHORT);
+        final MediaPlayer mp2 = MediaPlayer.create(this, R.raw.on);
 
-        //FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        //fab.setOnClickListener(new View.OnClickListener() {
-        //@Override
-        //public void onClick(View view) {
-        // Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-        //           .setAction("Action", null).show();
-        // }
-        //});
+        //pulsar boton start y inicar el juego
+        play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toast1.show();
+                mp1.start();
+                generategame();
+            }
+        });
+
+        //boton reset funcional
+        reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toast2.show();
+                mp2.start();
+                generategame();
+            }
+        });
+
+        //musica para los botones
+        final MediaPlayer mpG = MediaPlayer.create(MainActivity.this, R.raw.blaster);
+
+        //comprobar pulsaciones de los botones
+        botonescolor[0].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mpG.start();
+                check(0);
+                botonescolor[0].setCursorVisible(false);
+            }
+        });
+        botonescolor[1].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mpG.start();
+                check(1);
+                botonescolor[0].setCursorVisible(false);
+            }
+        });
+        botonescolor[2].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mpG.start();
+                check(2);
+                botonescolor[0].setCursorVisible(false);
+            }
+        });
+        botonescolor[3].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mpG.start();
+                check(3);
+                botonescolor[0].setCursorVisible(false);
+            }
+        });
+
     }
-        //partida lanzada
-        protected void partida(){
-            lvl+=1;
+
+        //generar partida
+        public void generategame(){
+            reset.setText("Next Lvl");
+            reset.setEnabled(true);
+            play.setVisibility(View.INVISIBLE);
+            reset.setVisibility(View.INVISIBLE);
             int time=1000;
 
-            partidas= new Integer[lvl];
+            final int color = (int)(Math.random()*4);
+            game.add(color);
 
-            for(int p=0; p<lvl; p++){
-                final int i = (int)(Math.random()*4);
-                partidas[p]=i;
+            for(int g=0; g<game.size(); g++){
+                Handler hand1 = new Handler();
+                final Handler hand2 = new Handler();
 
-                Handler handler = new Handler();
-                final Handler handler1 = new Handler();
-
-                handler.postDelayed(new Runnable() {
+                final int end = g;
+                hand1.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        botonescolor[i].setPressed(true);
-                        handler1.postDelayed(new Runnable() {
+                        botonescolor[game.get(end)].setPressed(true);
+                        hand2.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                botonescolor[i].setPressed(false);
+                                botonescolor[game.get(end)].setPressed(false);
                             }
                         },500);
                     }
-                }, time*i+500);
+                },time*g+500);
             }
-            for(int e=0; partidas.length>e; e++){
-                System.out.println(partidas[e]);
+            lvl.setText(String.valueOf(game.size()));
+        }
+
+        //comprobaciones colores, sonido al perder y mensaje
+        public void check(int colorCheck){
+            final MediaPlayer looser = MediaPlayer.create(this, R.raw.jabba);
+            final Toast txtlooser = Toast.makeText(getApplicationContext(),"YOU ARE LOOSER", Toast.LENGTH_SHORT);
+
+
+            if(colorCheck==0){
+                answers.add(0);
+            }
+            else if(colorCheck==1){
+                answers.add(1);
+            }
+            else if(colorCheck==2){
+                 answers.add(2);
+            }
+            else{
+                answers.add(3);
             }
 
-        }
-
-
-        //musica al presionar los botones de los colores
-        public void buttonSoundgreen(View view) {
-            MediaPlayer mpG = MediaPlayer.create(this, R.raw.blaster);
-            mpG.start();
-
-        }
-        public void buttonSoundblue(View view){
-            MediaPlayer mpB = MediaPlayer.create(this, R.raw.blaster);
-            mpB.start();
-
-        }
-        public void buttonSoundyellow(View view){
-            MediaPlayer mpY = MediaPlayer.create(this, R.raw.blaster);
-            mpY.start();
-
-        }
-        //pulsado el boton de start salta un mensaje con sonido
-        public void startgame(View view){
-            Toast toast1 = Toast.makeText(getApplicationContext(),"Que la fuerza te acompañe", Toast.LENGTH_SHORT);
-            toast1.show();
-            MediaPlayer mp = MediaPlayer.create(this, R.raw.swvader02);
-            mp.start();
-
-            //boton funcional start
-            final Button play = (Button) findViewById(R.id.btnstart);
-            play.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    partida();
-                    play.setCursorVisible(false);
+            if(game.size()==answers.size()){
+                for(int a=0; a<game.size(); a++){
+                    if(game.get(a).equals(answers.get(a))){
+                    }
+                    else{
+                        looser.start();
+                        txtlooser.show();
+                        answers.clear();
+                        game.clear();
+                        lvl.setText("0");
+                        play.setVisibility(View.VISIBLE);
+                        reset.setEnabled(false);
+                    }
                 }
-            });
-
+                answers.clear();
+                reset.setVisibility(View.VISIBLE);
+            }
         }
-        //pulsado en boton de reset salta un mensaje con sonido
-        public void resetgame(View view){
-            Toast toast1 = Toast.makeText(getApplicationContext(),"Reiniciando Partida", Toast.LENGTH_SHORT);
-            toast1.show();
-            MediaPlayer mp = MediaPlayer.create(this, R.raw.off);
-            mp.start();
-
-            //boton reset funcional
-            final Button reset = (Button) findViewById(R.id.btnrestart);
-            reset.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v) {
-                    partida();
-                    reset.setCursorVisible(true);
-                }
-            });
-        }
-
-
 
 
     @Override

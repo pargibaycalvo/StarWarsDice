@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SimonDice</string>
+    <string name="app_name">StarWarsDice pargibay</string>
     <string name="action_settings">Settings</string>
 
     <string name="ButtonRed">RED</string>
@@ -8,15 +8,8 @@
     <string name="ButtonYellow">YELLOW</string>
 
     <string name="ButtonStart">Start</string>
-    <string name="ButtonReset">Reset</string>
+    <string name="ButtonReset">Next lvl</string>
 
-    <string name="TextScore">Score</string>
-
-    <string name="ButtonReturn">Return Play</string>
-    <string name="ButtonCreador">Creador</string>
-    <string name="Creator">Pedro J. Argibay DAM2(AndroidStudio)</string>
-
-
-
+    <string name="TextScore">LEVEL</string>
 
 </resources>
