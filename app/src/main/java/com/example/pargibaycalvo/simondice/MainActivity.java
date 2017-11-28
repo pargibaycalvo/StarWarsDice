@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mpG.start();
                 check(1);
-                botonescolor[0].setCursorVisible(false);
+                botonescolor[1].setCursorVisible(false);
             }
         });
         botonescolor[2].setOnClickListener(new View.OnClickListener() {
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mpG.start();
                 check(2);
-                botonescolor[0].setCursorVisible(false);
+                botonescolor[2].setCursorVisible(false);
             }
         });
         botonescolor[3].setOnClickListener(new View.OnClickListener() {
@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mpG.start();
                 check(3);
-                botonescolor[0].setCursorVisible(false);
+                botonescolor[3].setCursorVisible(false);
             }
         });
 
