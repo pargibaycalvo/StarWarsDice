@@ -104,7 +104,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mpG.start();
                 check(0);
-                botonescolor[0].setCursorVisible(false);
             }
         });
         botonescolor[1].setOnClickListener(new View.OnClickListener() {
@@ -112,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mpG.start();
                 check(1);
-                botonescolor[1].setCursorVisible(false);
             }
         });
         botonescolor[2].setOnClickListener(new View.OnClickListener() {
@@ -120,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mpG.start();
                 check(2);
-                botonescolor[2].setCursorVisible(false);
             }
         });
         botonescolor[3].setOnClickListener(new View.OnClickListener() {
@@ -128,7 +125,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mpG.start();
                 check(3);
-                botonescolor[3].setCursorVisible(false);
             }
         });
 
@@ -170,8 +166,7 @@ public class MainActivity extends AppCompatActivity {
         public void check(int colorCheck){
             final MediaPlayer looser = MediaPlayer.create(this, R.raw.jabba);
             final Toast txtlooser = Toast.makeText(getApplicationContext(),"YOU ARE LOOSER", Toast.LENGTH_SHORT);
-
-
+            
             if(colorCheck==0){
                 answers.add(0);
             }
