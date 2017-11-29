@@ -165,8 +165,10 @@ public class MainActivity extends AppCompatActivity {
         //comprobaciones colores, sonido al perder y mensaje
         public void check(int colorCheck){
             final MediaPlayer looser = MediaPlayer.create(this, R.raw.jabba);
+            final MediaPlayer winner = MediaPlayer.create(this, R.raw.r2d2yeah);
+            final Toast txtwinner = Toast.makeText(getApplicationContext(),"WINNER", Toast.LENGTH_SHORT);
             final Toast txtlooser = Toast.makeText(getApplicationContext(),"YOU ARE LOOSER", Toast.LENGTH_SHORT);
-            
+
             if(colorCheck==0){
                 answers.add(0);
             }
@@ -194,6 +196,8 @@ public class MainActivity extends AppCompatActivity {
                         reset.setEnabled(false);
                     }
                 }
+                txtwinner.show();
+                winner.start();
                 answers.clear();
                 reset.setVisibility(View.VISIBLE);
             }
