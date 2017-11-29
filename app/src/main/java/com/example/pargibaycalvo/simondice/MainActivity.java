@@ -1,5 +1,6 @@
 package com.example.pargibaycalvo.simondice;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
@@ -43,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //Desactivamos la opcion de rotacion
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        
         //musica de fondo para la app
         musicafondo = MediaPlayer.create(this, R.raw.imperial);
         musicafondo.setLooping(true);
