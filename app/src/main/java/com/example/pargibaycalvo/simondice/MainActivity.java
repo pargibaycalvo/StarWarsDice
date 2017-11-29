@@ -21,12 +21,13 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
     int MAX_VOLUME = 100; //volumen máximo de referencia
-    int soundVolume = 50; //volumen que queremos poner
+    int soundVolume = 90; //volumen que queremos poner
     float volume = (float) (1 - (Math.log(MAX_VOLUME - soundVolume) / Math.log(MAX_VOLUME)));
     Button botonescolor[];
     Button play;
     Button reset;
     TextView lvl;
+    Button btnred, btnblue, btngreen, btnyellow;
     MediaPlayer musicafondo;
 
     public static final int INTERVALO = 2000; //2 segundos para salir
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Desactivamos la opcion de rotacion
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        
+
         //musica de fondo para la app
         musicafondo = MediaPlayer.create(this, R.raw.imperial);
         musicafondo.setLooping(true);
@@ -87,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 toast1.show();
                 mp1.start();
                 generategame();
+                disabledButtons();
             }
         });
 
@@ -97,13 +99,14 @@ public class MainActivity extends AppCompatActivity {
                 toast2.show();
                 mp2.start();
                 generategame();
+                disabledButtons();
             }
         });
 
         //musica para los botones
         final MediaPlayer mpG = MediaPlayer.create(MainActivity.this, R.raw.blaster);
 
-        //comprobar pulsaciones de los botones
+        //comprobar pulsaciones de los botones y sonido al pulsar
         botonescolor[0].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,7 +138,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-        //generar partida
+        //generar partida con activacion de botones y desactivacion (cuando inicie la secuencia de colores estarán
+        //desactivados hasta que finalize
         public void generategame(){
             reset.setText("Next Lvl");
             reset.setEnabled(true);
@@ -155,15 +159,18 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         botonescolor[game.get(end)].setPressed(true);
+                        disabledButtons();
                         hand2.postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 botonescolor[game.get(end)].setPressed(false);
+                                enabledButtons();
                             }
                         },500);
                     }
-                },time*g+500);
+                },time*g+1000);
             }
+            disabledButtons();
             lvl.setText(String.valueOf(game.size()));
         }
 
@@ -221,6 +228,34 @@ public class MainActivity extends AppCompatActivity {
                 exit.start();
             }
             tiempoPrimerClick = System.currentTimeMillis();
+        }
+
+        //descactivar botones al iniciar el juego
+        public void disabledButtons(){
+
+            btnred = (Button)findViewById(R.id.btnred);
+            btnred.setEnabled(false);
+            btnblue = (Button)findViewById(R.id.btnblue);
+            btnblue.setEnabled(false);
+            btngreen = (Button)findViewById(R.id.btngreen);
+            btngreen.setEnabled(false);
+            btnyellow = (Button)findViewById(R.id.btnyellow);
+            btnyellow.setEnabled(false);
+
+        }
+
+        //activar botones una vez inicie el juego
+        public void enabledButtons(){
+
+            btnred = (Button)findViewById(R.id.btnred);
+            btnred.setEnabled(true);
+            btnblue = (Button)findViewById(R.id.btnblue);
+            btnblue.setEnabled(true);
+            btngreen = (Button)findViewById(R.id.btngreen);
+            btngreen.setEnabled(true);
+            btnyellow = (Button)findViewById(R.id.btnyellow);
+            btnyellow.setEnabled(true);
+
         }
 
     //configuraciones secundarias (no activadas)
