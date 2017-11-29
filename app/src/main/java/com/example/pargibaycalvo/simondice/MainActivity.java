@@ -2,6 +2,7 @@ package com.example.pargibaycalvo.simondice;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -19,7 +20,7 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
     int MAX_VOLUME = 100; //volumen máximo de referencia
-    int soundVolume = 100; //volumen que queremos poner
+    int soundVolume = 50; //volumen que queremos poner
     float volume = (float) (1 - (Math.log(MAX_VOLUME - soundVolume) / Math.log(MAX_VOLUME)));
     Button botonescolor[];
     Button play;
@@ -166,7 +167,6 @@ public class MainActivity extends AppCompatActivity {
         public void check(int colorCheck){
             final MediaPlayer looser = MediaPlayer.create(this, R.raw.jabba);
             final MediaPlayer winner = MediaPlayer.create(this, R.raw.r2d2yeah);
-            final Toast txtwinner = Toast.makeText(getApplicationContext(),"WINNER", Toast.LENGTH_SHORT);
             final Toast txtlooser = Toast.makeText(getApplicationContext(),"YOU ARE LOOSER", Toast.LENGTH_SHORT);
 
             if(colorCheck==0){
@@ -189,6 +189,7 @@ public class MainActivity extends AppCompatActivity {
                     else{
                         looser.start();
                         txtlooser.show();
+                        winner.stop();
                         answers.clear();
                         game.clear();
                         lvl.setText("0");
@@ -196,11 +197,11 @@ public class MainActivity extends AppCompatActivity {
                         reset.setEnabled(false);
                     }
                 }
-                txtwinner.show();
-                winner.start();
                 answers.clear();
+                winner.start();
                 reset.setVisibility(View.VISIBLE);
             }
+
         }
 
         //confirmacion al salir de la app con sonido
